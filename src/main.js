@@ -1,8 +1,25 @@
-import "./style.css";
-import heroImg from "./assets/hero.png";
-import javascriptLogo from "./assets/javascript.svg";
-import viteLogo from "./assets/vite.svg";
-import { setupCounter } from "./counter.js";
+import Phaser from "phaser";
+import { BootScene } from "./scenes/BootScene";
+import { GameScene } from "./scenes/GameScene";
 
-document.querySelector("#app").innerHTML = '<div id="app"></div>';
-setupCounter(document.querySelector("#counter"));
+const config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  parent: "game-container",
+  pixelArt: true, // Mantém a nitidez da Pixel Art do Piskel
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
+  physics: {
+    default: "arcade",
+    arcade: {
+      gravity: { y: 0 }, // Jogo top-down / arena
+      debug: true, // Ativo no início para visualizar hitboxes
+    },
+  },
+  scene: [BootScene, GameScene],
+};
+
+new Phaser.Game(config);
